@@ -2,6 +2,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from "ngx-toastr";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
@@ -12,17 +14,25 @@ import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "./shared/http/auth.interceptor";
+import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from "./shared/guards/auth.guard";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(AppRoutes,{
-      useHash: true
+      useHash: false
     }),
     SidebarModule,
     NavbarModule,
@@ -30,7 +40,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     FooterModule,
     FixedPluginModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

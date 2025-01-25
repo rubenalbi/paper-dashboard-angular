@@ -4,5 +4,10 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  serverUrl: '/api',
+  financeApiUrl: 'http://localhost:8080/api/finance/',
+  authApiUrl: 'http://localhost:8080/api/auth/',
+  defaultLanguage: 'en-US',
+  supportedLanguages: ['en-US', 'fr-FR'],
 };
