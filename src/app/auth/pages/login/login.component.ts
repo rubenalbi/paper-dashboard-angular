@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Logger } from 'app/shared/services/logger.service';
 import { AuthService } from 'app/services/auth.service';
 import { finalize } from 'rxjs';
+import { ErrorMessage } from 'app/models/error-message';
 
 const log = new Logger('Login');
 
@@ -13,7 +14,7 @@ const log = new Logger('Login');
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  error: string | undefined;
+  error: ErrorMessage | undefined;
   loginForm!: FormGroup;
   isLoading = false;
 
@@ -48,8 +49,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.route.snapshot.queryParams['redirect'] || '/'], { replaceUrl: true });
         },
         (error) => {
-          log.debug(`Login error: ${error}`);
-          this.error = error;
+          log.debug(`Login error: ${error.error.message}`);
+          this.error = error.error;
         }
       );
   }

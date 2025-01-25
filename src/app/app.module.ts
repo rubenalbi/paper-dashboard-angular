@@ -16,15 +16,19 @@ import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./shared/http/auth.interceptor";
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './auth/pages/login/login.component';
 import { AuthGuard } from "./shared/guards/auth.guard";
+import { RegisterComponent } from './auth/pages/register/register.component';
+import { DangerAlertComponent } from './shared/components/danger-alert/danger-alert.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    DangerAlertComponent
   ],
   imports: [
     BrowserAnimationsModule,
